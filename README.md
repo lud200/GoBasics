@@ -5,6 +5,7 @@
 3. Variables
 4. Formatting and fmt package
 5. Arrays and Slices
+6. Loops
 
 * Download go for your machine on official website
 https://go.dev/dl/
@@ -159,3 +160,11 @@ Loops in Go
 
 * Loops are used to execute code multiple times. 
 * Loops in Go are simplified. We only have for loop. 
+* Infinite loop is going to print hello world infinite number of times: 
+  ```go 
+  for{
+    fmt.Println("Hello World")
+  }
+  
+  ```
+* 
