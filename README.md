@@ -194,6 +194,8 @@ Blank Identifier
     firstNames := []string{}
 	    for _, bookings := range bookings{
 		    var names = string.Fields(bookings)
+        // Here names will have 2 values firstName and lastName. 
+        // names[0] returns the firstname
         firstNames = append(firstNames, names[0])
 	    }
   ```
@@ -212,3 +214,104 @@ If-else
   ```
 * In order to avoid such random outputs and infinite loops, we have to ensure that right conditional statements are in place. 
 * We can use break and continue similar to how we use in java.
+
+Conditional for loop
+* Execute a loop till a condition is satisfied
+  ```go
+  for remainingTickets>0 && len(totalBookings)<50{ 
+    // do something
+  }
+  ```
+
+Input validations
+* We need to ensure that application can handle bad user input data
+* We can do string validations using "string" package. 
+* len() calculates the length of a string.
+* strings.Contains(val1, val2) can be used to make string validations 
+  ```go
+    //Here isvalidName is a boolean value that returns true if length of both first and last name is >2
+    var isValidName = len(firstName)>=2 && len(lastName)>=2
+    //Here isValidEmail is a boolean value that returns true if email contains the character @
+    var isValidEmail = strings.Contains(email, "@")
+    //Here isValidTicketCount is a boolean value that returns true if conditional statement passes for the integer comparisions. 
+    var isValidTicketCount = userTickets>0 && remainingTickets>=userTickets
+  ```
+Switch statement
+* works similar to java switch case. Example below: 
+  ```go
+  city := "London"
+
+  switch{
+    case "New York":
+	    //Execute code for reservations in New York
+    case "London":
+	    //Execute code for reservations in London
+    case "Singapore":
+	    //Execute code for reservations in Singapore
+    case "Mumbai":
+	    //Execute code for reservations in Mumbai
+    default:
+	    fmt.Println("Invalid city selected")
+  å}```
+
+Functions
+* We encapsulate code into its own container called function. Which logically belong together. 
+* Like variable name you have to give a function a descriptive name. 
+* Call the function by its name, whenever you want to execute this code. 
+  ```go
+    func greetUsers(){
+	  fmt.Println("Welcome to our Learning path")
+   }
+  ```
+* Creating/declaring a function does not gaurantee that it will be executed. This only means that the created function can be for later use.
+* Functions will only be executed when called. 
+* Functions can be called as many times as you want. 
+* Functions allow us to reduce code duplication. 
+* We can call a function by mentioning it in main function 
+  ```go
+  func main(){
+    //your code
+    greetUsers()
+  }
+  ```
+* We can also have functions that accept parameters. We can do that by mentioning parameter and type in the function declaration
+  ```go
+    func greetUsers(confName string){
+	  fmt.Printf("Welcome to our %v", confName)
+   }
+  ```
+* Returning values from a function 
+* A function can return data as a result
+* Function can take an input and return an output. 
+* In Go you have to define the input and output parameters including its type explicitly. 
+* We have the return type of the function outside of the function delcaration brackets. 
+  ```go
+    func printFirstNames(totalBookings []string) []string{
+	    firstNames := []string{}
+	    for _, totalBookings := range totalBookings{
+		    var names = strings.Fields(totalBookings)
+		    var firstName = names[0]
+		    firstNames = append(firstNames, firstName)
+	    }
+	  return firstNames
+    }
+    ```
+* Go has the capability to return multiple values for a function. 
+* We need to define multiple return types in paranthesis in the function declaration
+  i.e., input parameters in (val1, val2, ..) and output types in second paranthesis as shown below: 
+  ```go
+    func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+	  var isValidName = len(firstName)>=2 && len(lastName)>=2
+	  var isValidEmail = strings.Contains(email, "@")
+	  var isValidTicketCount = userTickets>0 && remainingTickets>=userTickets
+	  return isValidName, isValidEmail, isValidTicketCount
+  }
+  ```
+* While calling this function with multiple return types in main() function, we can declare multiple variables and assign it to single function and the return values are saved in that order. 
+  ```go
+    	isValidName, isValidEmail, isValidTicketCount:= validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+
+  ```
+Package level variables
+* Package level variables are declared at the top outside all functions
+* They can be accessed inside any function in the package and in all files which are in same package. 
