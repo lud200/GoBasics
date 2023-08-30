@@ -212,4 +212,3 @@ If-else
   ```
 * In order to avoid such random outputs and infinite loops, we have to ensure that right conditional statements are in place. 
 * We can use break and continue similar to how we use in java. 
-* 
