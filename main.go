@@ -1,6 +1,8 @@
 package main
  
-import "fmt"
+import ("fmt" 
+		"strings"
+)
 
 func main(){
 
@@ -33,15 +35,35 @@ func main(){
 		fmt.Scan(&email)
 		fmt.Println("No of tickets: ")
 		fmt.Scan(&userTickets)
+
+		if userTickets>remainingTickets{
+			fmt.Printf("We have %v tickets remaining. \n", remainingTickets)
+			continue
+		}
+
 		remainingTickets = remainingTickets-userTickets
 		totalBookings = append(totalBookings, firstName+" "+lastName)
 
-		fmt.Printf("Whole Array: %v \n", bookings)
+		fmt.Printf("Whole Array: %v \n", totalBookings)
 		fmt.Println("first value of Array: \n", bookings[2])
 		fmt.Printf("Array type : %T \n", bookings)
 		fmt.Printf("Length of array:  %v \n", len(bookings))
 		fmt.Printf("Thank you %v %v for booking %v tickets, you will recieve confirmation to email %v \n", firstName, lastName, userTickets, email)
 		fmt.Printf("%v Remaining tickets for %v \n", remainingTickets, conferenceName)
+
+		firstNames := []string{}
+		for _, totalBookings := range totalBookings{
+			var names = strings.Fields(totalBookings)
+			var firstName = names[0]
+			firstNames = append(firstNames, firstName)
+		}
+
+		fmt.Printf("The first names of bookings are %v \n", firstNames)
+
+		if remainingTickets == 0{
+			fmt.Println("Tickets are sold out!!")
+			break
+		}
 	}
 }
 	

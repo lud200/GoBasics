@@ -167,4 +167,48 @@ Loops in Go
   }
   
   ```
+
+string.Fields()
+
+* string.Fields() splits the string with white space separator and returns the slice with split elements. 
+```go
+    firstNames := []string{}
+	  for index, bookings := range bookings{
+		  var names = string.Fields(bookings)
+      firstNames = append(firstNames, names[0])
+	  }
+```
+* To use string functions like Fields we need to import the package "strings". It is important to declare imported packages in new lines and brackets should be declared as shown below: 
+  ```go 
+  import ("fmt" 
+		"strings"
+  )
+  ```
+
+Blank Identifier
+* In the above example we will see an error for unused variable index. We did not use it in the for loop. We can use blank identifiers in go and this can be done with the help of underscore '_'
+* Blank identifier is used to ignore a variable you dont want to use. 
+* With go, you need to make unused variables explicit. 
+  ```go
+    firstNames := []string{}
+	    for _, bookings := range bookings{
+		    var names = string.Fields(bookings)
+        firstNames = append(firstNames, names[0])
+	    }
+  ```
+
+If-else
+* This works similar to how if-else works in java. 
+* It is important to input correct conditional statement in go. If a condition fails, that should be handled by user or else you might endup seeing redundant data. For example, we have 50 tickets and we try to book 54 tickets with the below condition: 
+  ```go
+    if remainingTickets == 0{
+			fmt.Println("Tickets are sold out!!")
+			break
+		}
+
+    OUTPUT: 
+    18446744073709551610 Remaining tickets for Go Programming 
+  ```
+* In order to avoid such random outputs and infinite loops, we have to ensure that right conditional statements are in place. 
+* We can use break and continue similar to how we use in java. 
 * 
