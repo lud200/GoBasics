@@ -6,6 +6,7 @@
 4. Formatting and fmt package
 5. Arrays and Slices
 6. Loops
+7. if-else
 
 * Download go for your machine on official website
 https://go.dev/dl/
