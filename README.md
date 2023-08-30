@@ -143,7 +143,7 @@ Slices
 * Slices is an abstraction of array 
 * Slices are more flexible and powerful. They have variable length or get a subarray of its own. 
 * Slices are also index-based and have a size but can be resized when needed. 
-* For defining a slice, we create an array without size defenition. 
+* For defining a slice, we create an array without size definition. 
   ```go
   var bookings []string OR
   var bookings = []string{} OR
