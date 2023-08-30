@@ -1,69 +1,70 @@
 package main
- 
-import ("fmt" 
-		"strings"
+
+import (
+	"fmt"
+	"strings"
 )
 
-func main(){
+// Package level variables
+const conferenceTickets = 50
 
-	
-	var conferenceName = "Go Programming"
-	const conferenceTickets = 50
-	var remainingTickets uint = 50
+var conferenceName = "Go Programming"
+var remainingTickets uint = 50
+var totalBookings = []string{}
 
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+func main() {
+
+	greetUsers()
 	// fmt.Println("Welcome to ",conferenceName," application")
 	// fmt.Println("We have total of ", conferenceTickets, " and available tickets of ",remainingTickets)
 	// fmt.Printf("\n conferenceTickets type is %T and conferenceName type is %T", conferenceTickets, conferenceName)
 	// var bookings = [50] string{"barbie", "george", "nana"}
-	
-	var totalBookings = []string{}
 	// Conditional for loop
 	// for remainingTickets>0 && len(totalBookings)<50{}
 	//Infinite loop
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
 
-		isValidName, isValidEmail, isValidTicketCount:= validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicketCount := helper.validateUserInput(firstName, lastName, email, userTickets)
 
-		if(isValidName && isValidEmail && isValidTicketCount){
-			bookTicket(remainingTickets, userTickets , totalBookings , firstName , lastName , email , conferenceName){
+		if isValidName && isValidEmail && isValidTicketCount {
+			bookTicket(userTickets, firstName, lastName, email)
 
 			// call function print firstnames
-			firstNames := printFirstNames(totalBookings)
+			firstNames := printFirstNames()
 			fmt.Printf("\nFirst names %v:", firstNames)
-	
+
 			// fmt.Printf("The first names of bookings are %v \n", firstNames)
-	
-			if remainingTickets == 0{
+
+			if remainingTickets == 0 {
 				fmt.Println("Tickets are sold out!!")
 				break
 			}
-			
-		}else{
-			if !isValidName{
+
+		} else {
+			if !isValidName {
 				fmt.Println("too short name")
 			}
-			if !isValidEmail{
+			if !isValidEmail {
 				fmt.Println("Email is missing @")
 			}
-			if(!isValidTicketCount){
+			if !isValidTicketCount {
 				fmt.Println("Invalid ticket count")
 			}
 		}
 	}
 }
 
-func greetUsers(conferenceName string, confTickets int,remainingTickets uint){
+func greetUsers() {
 	fmt.Printf("Welcome to our Learning path %v", conferenceName)
-	fmt.Printf("\nWe have total of %v  and available tickets of %v \n",confTickets, remainingTickets)
+	fmt.Printf("\nWe have total of %v  and available tickets of %v \n", conferenceTickets, remainingTickets)
 	fmt.Println("\nGet your first programs starting here")
 	fmt.Println(conferenceName)
 }
 
-func printFirstNames(totalBookings []string) []string{
+func printFirstNames() []string {
 	firstNames := []string{}
-	for _, totalBookings := range totalBookings{
+	for _, totalBookings := range totalBookings {
 		var names = strings.Fields(totalBookings)
 		var firstName = names[0]
 		firstNames = append(firstNames, firstName)
@@ -71,16 +72,7 @@ func printFirstNames(totalBookings []string) []string{
 	return firstNames
 }
 
-func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
-	var isValidName = len(firstName)>=2 && len(lastName)>=2
-	var isValidEmail = strings.Contains(email, "@")
-	var isValidTicketCount = userTickets>0 && remainingTickets>=userTickets
-
-	return isValidName, isValidEmail, isValidTicketCount
-
-}
-
-func getUserInput() (string, string, string, uint){
+func getUserInput() (string, string, string, uint) {
 	var firstName string
 	var lastName string
 	var email string
@@ -96,14 +88,14 @@ func getUserInput() (string, string, string, uint){
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(remainingTickets uint, userTickets uint, totalBookings []string, firstName string, lastName string, email string, conferenceName string){
-	remainingTickets = remainingTickets-userTickets
-	totalBookings = append(totalBookings, firstName+" "+lastName)	
-			// fmt.Printf("Whole Array: %v \n", totalBookings)
-			// fmt.Println("first value of Array: \n", bookings[2])
-			// fmt.Printf("Array type : %T \n", bookings)
-			// fmt.Printf("Length of array:  %v \n", len(bookings))
+func bookTicket(userTickets uint, firstName string, lastName string, email string) {
+	remainingTickets = remainingTickets - userTickets
+	totalBookings = append(totalBookings, firstName+" "+lastName)
+	// fmt.Printf("Whole Array: %v \n", totalBookings)
+	// fmt.Println("first value of Array: \n", bookings[2])
+	// fmt.Printf("Array type : %T \n", bookings)
+	// fmt.Printf("Length of array:  %v \n", len(bookings))
 	fmt.Printf("\nThank you %v %v for booking %v tickets, you will recieve confirmation to email %v \n", firstName, lastName, userTickets, email)
 	fmt.Printf("\n%v Remaining tickets for %v \n", remainingTickets, conferenceName)
-	
+
 }

@@ -312,6 +312,56 @@ Functions
     	isValidName, isValidEmail, isValidTicketCount:= validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
   ```
+More use cases of functions: 
+* Group logic that belongs together. 
+* Reuse logic and reduce duplication of code
+
 Package level variables
 * Package level variables are declared at the top outside all functions
 * They can be accessed inside any function in the package and in all files which are in same package. 
+* Package level variables must be declared using var keyword. They cannot be declared with :=
+  ```go
+  package main
+  import (
+	  "fmt"
+	  "strings"
+    )
+    // Package level variables
+    const conferenceTickets = 50
+    var conferenceName = "Go Programming"
+    var remainingTickets uint = 50
+    var totalBookings = []string{}
+    func main() {//Your code
+    }
+
+  ```
+
+Local Variables
+* Local variables are declared inside a function or block
+* They can be accessed only inside a function or a block.
+
+Packages 
+* Can I modularize an application in go? 
+* Absolutely, go programs are organized into packages. 
+* A package is a collection of go files which can be (1..n) files. 
+* At the Scope of package level, variables and fucntions defined outside any function can be accessed by all other files within same package. 
+* In our example we added a new helper package called helper.go
+* When you have methods/function from one package being refered in another., when we run  ```go run main.go``` we will see an error message ```./main.go:28:52: undefined: validateUserInput``` Inorder to overcome errors like this, we will need to call all the files that belong to the application. 
+  ```go
+    go run main.go helper.go OR 
+    go run .
+  ```
+  * "." specifies the current folder and all the files in that folder will be picked during execution. 
+  * Multiple Packages can help you organize your application and logically group your code. 
+  * When you have to call function from a different package, similar to how we use "strings" or "fmt" we have to explicitly import our user defined packages to use the methods. 
+  * In our example we created a folder called helper, with a helper package. Can we import it directly by `import "helper"` ? No we cannot. 
+  * In order to import userdefined packages, we need to specify the path. We have to checkthe go.mod file for the import path. In this example `module booking-app` defines the import path. 
+  ```go 
+    import (
+	    "fmt"
+	    "strings"
+	    "booking-app/helper"
+    )
+  ```
+  * For a function to be used between packages, we need to explicitly export that function. 
+
