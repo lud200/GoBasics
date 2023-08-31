@@ -436,3 +436,46 @@ Packages
  ```
 
 Concurrency 
+* Concurrency is cheap in go. 
+* Write go infront of the function you want to run as a separate thread. Thats it !!
+* So say that we have a function that prints the ticket information and emails it, and we wait for 5 seconds before the data is being processed.
+  ```go 
+  func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(5 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v ", userTickets, firstName, lastName)
+	fmt.Println("***********")
+	fmt.Printf("Sending ticket: %v \n to email %v\n", ticket, email)
+	fmt.Println("***********")
+  }
+
+  You can call this in main function like : 
+  sendTicket(userTickets, firstName, lastName, email)
+  ```
+* This will run main function and waits for 5 seconds before printing and emailing the data. 
+* We can achieve concurrency by adding `go` infront of the method in main fucntion
+  ```go
+    go sendTicket(userTickets, firstName, lastName, email)
+  ```
+* This `go` command starts a new go routine. 
+* A go routine is lightweighted thread managed by go during run time. 
+* So even if the function takes 10 times longer, the main application will not be affecte by that. 
+
+Synchronization
+* By default main thread does not wait for any other go routines. 
+* Whatever happens in other threads gets ignored. 
+* We have to explicitly tell the main thread to wait till the other go routines complete. 
+* Inorder to do that we need to create a `WaitGroup` with curly braces
+* These Waits are for the launched go routine to finish. Package "sync" provides basic synchronization functionality. 
+* Wait group has a first function called `Add`
+* `Add` sets the number of goroutines to wait for.
+* Second function is `Wait`. It waits for all the threads to finish before the application cound exit. 
+* `Wait` blocks until waitgroup counter is 0. 
+* Third funciton is `Done` 
+* `Done` decrements the waitgroup counter by 1 so this is called by go routine to indicate that its finished. 
+* Multithreading is easy in go, because go is using whats called as `Green Thread`
+* Absraction of an actual thread and managed by the go runtime. We are only interacting with the high level go routines. 
+* Cheaper and light weight and 
+  * Not managed by kernel
+  * Not hardware dependent
+  * No high startup time.
+* This allows us to run hundreds and thousands of goroutines without affecting the performance. 
