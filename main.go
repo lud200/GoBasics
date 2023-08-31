@@ -1,8 +1,8 @@
 package main
 
 import (
+	// "booking-app/helper"
 	"fmt"
-	"strings"
 )
 
 // Package level variables
@@ -10,7 +10,18 @@ const conferenceTickets = 50
 
 var conferenceName = "Go Programming"
 var remainingTickets uint = 50
-var totalBookings = []string{}
+
+// Initializing a list of maps:
+// var totalBookings = make([]map[string]string, 0)
+
+type UserData struct {
+	fName       string
+	lName       string
+	mail        string
+	noOfTickets uint
+}
+
+var totalBookings = make([]UserData, 0)
 
 func main() {
 
@@ -25,7 +36,7 @@ func main() {
 	for {
 		firstName, lastName, email, userTickets := getUserInput()
 
-		isValidName, isValidEmail, isValidTicketCount := helper.validateUserInput(firstName, lastName, email, userTickets)
+		isValidName, isValidEmail, isValidTicketCount := validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketCount {
 			bookTicket(userTickets, firstName, lastName, email)
@@ -65,9 +76,10 @@ func greetUsers() {
 func printFirstNames() []string {
 	firstNames := []string{}
 	for _, totalBookings := range totalBookings {
-		var names = strings.Fields(totalBookings)
-		var firstName = names[0]
-		firstNames = append(firstNames, firstName)
+		// var names = strings.Fields(totalBookings)
+		// var firstName = names[0]
+		// firstNames = append(firstNames, totalBookings["firstName"])
+		firstNames = append(firstNames, totalBookings.fName)
 	}
 	return firstNames
 }
@@ -90,7 +102,20 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
-	totalBookings = append(totalBookings, firstName+" "+lastName)
+	// create a map for user
+	// var userData = make(map[string]string)
+	var userData = UserData{
+		fName:       firstName,
+		lName:       lastName,
+		mail:        email,
+		noOfTickets: userTickets,
+	}
+	totalBookings = append(totalBookings, userData)
+	fmt.Printf("Total bookings = %v", totalBookings)
+	// userData["firstName"] = firstName
+	// userData["lastName"] = lastName
+	// userData["email"] = email
+	// userData["noTickets"] = strconv.FormatUint(uint64(userTickets), 10)
 	// fmt.Printf("Whole Array: %v \n", totalBookings)
 	// fmt.Println("first value of Array: \n", bookings[2])
 	// fmt.Printf("Array type : %T \n", bookings)
@@ -98,4 +123,11 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	fmt.Printf("\nThank you %v %v for booking %v tickets, you will recieve confirmation to email %v \n", firstName, lastName, userTickets, email)
 	fmt.Printf("\n%v Remaining tickets for %v \n", remainingTickets, conferenceName)
 
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	var ticket = fmt.Sprintf("%v tickets for %v %v ", userTickets, firstName, lastName)
+	fmt.Println("***********")
+	fmt.Printf("Sending ticket: %v \n to email %v", ticket, email)
+	fmt.Println("***********")
 }

@@ -6,12 +6,23 @@
 4. Formatting and fmt package
 5. Arrays and Slices
 6. Loops
-7. if-else
+7. Blank Identifier
+8. if-else
+9. Input validations
+10. Switch statement
+11. Functions
+12. Package level variables
+13. Local Variables
+14. Packages 
+15. Maps
+16. Struct
+
+**Installation**
 
 * Download go for your machine on official website
 https://go.dev/dl/
 
-* Follow the installation steps and if you run go -version in terminal you should see something like below on successful installation: 
+* Follow the installation steps and if you run `go -version` in terminal you should see something like below on successful installation: 
     ```go
     go version go1.21.0 darwin/amd64
     ```
@@ -20,7 +31,7 @@ https://go.dev/dl/
 * Install visual studio and Go extension in visual studio.
 
 
-* Create a temp app called booking-app and open in visual studio
+* Create a temp app called `booking-app` and open in visual studio
     ```console
     cmd: mkdir booking-app 
     ```
@@ -41,10 +52,10 @@ https://go.dev/dl/
     ```go
     go mod init booking-app
     ``` 
-    and this creates a **go.mod** file which contains details like "module" and version of go that is used in our project.  This resolves the first error we encounter. 
+    and this creates a `go.mod` file which contains details like "module" and version of go that is used in our project.  This resolves the first error we encounter. 
 
-* The first line of code is Print("hello world") 
-* This shows a second error called "Declaration is required" which means go is telling us that it does not know where to start our application and an entry point of application is needed. 
+* The first line of code is `Print("hello world")` 
+* This shows a second error called `Declaration is required` which means go is telling us that it does not know where to start our application and an entry point of application is needed. 
 We always need a main starting point for execution. In order to do that, we need a main() function that go will look for while executing our main application. 
 
     ```go 
@@ -67,7 +78,8 @@ https://pkg.go.dev/std
      ```
     Hello World
     ``````
-Variables
+
+**Variables**
 * Variables are used to store values
 * Give the variable a name and reference everywhere in the app
 * Update value only once
@@ -92,14 +104,14 @@ more like final keyword in java.
     ```
 
 * Go is a statically typed language. So if a variable is not initialized, we should mention its type. Like if it is a string/integer value. If the value is initialized, go interpreter knows the type of variable that is being passed. 
-* var v = 50 marks v as an integer value and var s = "abcd" marks s as a string value. 
+* `var v = 50` marks v as an integer value and `var s = "abcd"` marks s as a string value. 
 
 * To define a type, 
     ```go
     var userName string
     ```
 
-* %T is used to print the type of a variable
+* `%T `is used to print the type of a variable
   ```go
   fmt.Printf("conferenceTickets type is %T and conferenceName type is %T", conferenceTickets, conferenceName)
   ```
@@ -121,10 +133,10 @@ more like final keyword in java.
   gives the hash/pointer to the memory locations. 
 * We cannot use variables before the actual declaration like javascript. Order matters in go 
 
-Arrays and Slices
+**Arrays and Slices**
 * Arrays and Slices are commonly used datatypes in go applications. 
 
-Arrays
+**Arrays**
 * Arrays in go have fixed size. 
   ```go
   var variableName [size]variable_type
@@ -139,7 +151,7 @@ Arrays
   bookings[9]="Crime Master Go Go"
   ```
 
-Slices
+**Slices**
 
 * Slices is an abstraction of array 
 * Slices are more flexible and powerful. They have variable length or get a subarray of its own. 
@@ -157,7 +169,7 @@ Slices
 * Advantage of slices is there is no need to keep track of indexes and we can allocate information dynamically. Which can save memory and space. 
   
 
-Loops in Go
+**Loops in Go**
 
 * Loops are used to execute code multiple times. 
 * Loops in Go are simplified. We only have for loop. 
@@ -169,11 +181,11 @@ Loops in Go
   
   ```
 
-string.Fields()
+**string.Fields()**
 
 * string.Fields() splits the string with white space separator and returns the slice with split elements. 
 ```go
-    firstNames := []string{}
+  firstNames := []string{}
 	  for index, bookings := range bookings{
 		  var names = string.Fields(bookings)
       firstNames = append(firstNames, names[0])
@@ -186,12 +198,12 @@ string.Fields()
   )
   ```
 
-Blank Identifier
+**Blank Identifier**
 * In the above example we will see an error for unused variable index. We did not use it in the for loop. We can use blank identifiers in go and this can be done with the help of underscore '_'
 * Blank identifier is used to ignore a variable you dont want to use. 
 * With go, you need to make unused variables explicit. 
   ```go
-    firstNames := []string{}
+  firstNames := []string{}
 	    for _, bookings := range bookings{
 		    var names = string.Fields(bookings)
         // Here names will have 2 values firstName and lastName. 
@@ -200,11 +212,11 @@ Blank Identifier
 	    }
   ```
 
-If-else
+**If-else**
 * This works similar to how if-else works in java. 
 * It is important to input correct conditional statement in go. If a condition fails, that should be handled by user or else you might endup seeing redundant data. For example, we have 50 tickets and we try to book 54 tickets with the below condition: 
   ```go
-    if remainingTickets == 0{
+  if remainingTickets == 0{
 			fmt.Println("Tickets are sold out!!")
 			break
 		}
@@ -223,7 +235,7 @@ Conditional for loop
   }
   ```
 
-Input validations
+**Input validations**
 * We need to ensure that application can handle bad user input data
 * We can do string validations using "string" package. 
 * len() calculates the length of a string.
@@ -236,7 +248,8 @@ Input validations
     //Here isValidTicketCount is a boolean value that returns true if conditional statement passes for the integer comparisions. 
     var isValidTicketCount = userTickets>0 && remainingTickets>=userTickets
   ```
-Switch statement
+
+**Switch statement**
 * works similar to java switch case. Example below: 
   ```go
   city := "London"
@@ -254,12 +267,12 @@ Switch statement
 	    fmt.Println("Invalid city selected")
   å}```
 
-Functions
+**Functions**
 * We encapsulate code into its own container called function. Which logically belong together. 
 * Like variable name you have to give a function a descriptive name. 
 * Call the function by its name, whenever you want to execute this code. 
   ```go
-    func greetUsers(){
+  func greetUsers(){
 	  fmt.Println("Welcome to our Learning path")
    }
   ```
@@ -276,7 +289,7 @@ Functions
   ```
 * We can also have functions that accept parameters. We can do that by mentioning parameter and type in the function declaration
   ```go
-    func greetUsers(confName string){
+  func greetUsers(confName string){
 	  fmt.Printf("Welcome to our %v", confName)
    }
   ```
@@ -286,7 +299,7 @@ Functions
 * In Go you have to define the input and output parameters including its type explicitly. 
 * We have the return type of the function outside of the function delcaration brackets. 
   ```go
-    func printFirstNames(totalBookings []string) []string{
+  func printFirstNames(totalBookings []string) []string{
 	    firstNames := []string{}
 	    for _, totalBookings := range totalBookings{
 		    var names = strings.Fields(totalBookings)
@@ -300,7 +313,7 @@ Functions
 * We need to define multiple return types in paranthesis in the function declaration
   i.e., input parameters in (val1, val2, ..) and output types in second paranthesis as shown below: 
   ```go
-    func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+  func validateUserInput(firstName string, lastName string, email string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
 	  var isValidName = len(firstName)>=2 && len(lastName)>=2
 	  var isValidEmail = strings.Contains(email, "@")
 	  var isValidTicketCount = userTickets>0 && remainingTickets>=userTickets
@@ -309,14 +322,14 @@ Functions
   ```
 * While calling this function with multiple return types in main() function, we can declare multiple variables and assign it to single function and the return values are saved in that order. 
   ```go
-    	isValidName, isValidEmail, isValidTicketCount:= validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
+  isValidName, isValidEmail, isValidTicketCount:= validateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 
   ```
 More use cases of functions: 
 * Group logic that belongs together. 
 * Reuse logic and reduce duplication of code
 
-Package level variables
+**Package level variables**
 * Package level variables are declared at the top outside all functions
 * They can be accessed inside any function in the package and in all files which are in same package. 
 * Package level variables must be declared using var keyword. They cannot be declared with :=
@@ -336,7 +349,7 @@ Package level variables
 
   ```
 
-Local Variables
+**Local Variables**
 * Local variables are declared inside a function or block
 * They can be accessed only inside a function or a block.
 
@@ -348,20 +361,78 @@ Packages
 * In our example we added a new helper package called helper.go
 * When you have methods/function from one package being refered in another., when we run  ```go run main.go``` we will see an error message ```./main.go:28:52: undefined: validateUserInput``` Inorder to overcome errors like this, we will need to call all the files that belong to the application. 
   ```go
-    go run main.go helper.go OR 
-    go run .
+  go run main.go helper.go OR 
+  go run .
   ```
-  * "." specifies the current folder and all the files in that folder will be picked during execution. 
-  * Multiple Packages can help you organize your application and logically group your code. 
-  * When you have to call function from a different package, similar to how we use "strings" or "fmt" we have to explicitly import our user defined packages to use the methods. 
-  * In our example we created a folder called helper, with a helper package. Can we import it directly by `import "helper"` ? No we cannot. 
-  * In order to import userdefined packages, we need to specify the path. We have to checkthe go.mod file for the import path. In this example `module booking-app` defines the import path. 
+* "." specifies the current folder and all the files in that folder will be picked during execution. 
+* Multiple Packages can help you organize your application and logically group your code. 
+* When you have to call function from a different package, similar to how we use "strings" or "fmt" we have to explicitly import our user defined packages to use the methods. 
+* In our example we created a folder called helper, with a helper package. Can we import it directly by `import "helper"` ? No we cannot. 
+* In order to import userdefined packages, we need to specify the path. We have to checkthe go.mod file for the import path. In this example `module booking-app` defines the import path. 
   ```go 
-    import (
+  import (
 	    "fmt"
 	    "strings"
 	    "booking-app/helper"
     )
   ```
-  * For a function to be used between packages, we need to explicitly export that function. 
+* For a function to be used between packages, we need to explicitly export that function. 
+* In go to export a function, capitalize the first alphabet of a function and it is available for exporting. 
+  ```go
+  func ValidateUserInput(//Your code
+    )
+    and you can use it in other packages using `helper.ValidateUserInput``
+  ```
+* One more thing you need to notice here is all the `fmt` or `strings` package functions start with capital letters. 
+* Along with functions, we can also export variables in go. 
+* We have 3 levels of scope
+  * Local 
+  1. Declared within function and can be used only within that function.
+  2. Declared with in block like if-else or for and can be used only in that block. 
+  * Package level
+   Declared outside all functions and can be used everywhere in same package. 
+  * Global
+    Variables that are shared across packages are called global variables. Declared outside all functions and uppercase first letter. They can be used everywhere across all packages. 
+* Variable scope is defined as the region of program where a defined variable can be accessed. 
 
+**Maps**
+* A datatype that allows us to store multiple key-value pairs is called a map. 
+* Maps have unique keys to values. 
+  ```go 
+    var userData = make(map[string]string)
+  ```
+* We cannot mix datatypes in go. 
+* To convert an integer to string we have a function called `FormatUint` which comes from a package called `strconv` and we need to import "strconv" to use the package. 
+  ```go
+  strconv.FormatUint(uint64(userTickets), 10)
+  ```
+**Struct Datatype**
+* Struct is used when we need to use values of mixed datatypes. 
+* Maps in go limit to support only 1 datatype and we have to use type conversions as shown in example above to support different datatypes. 
+* Struct stands for structures. 
+* Struct allows us to save key value pairs but with mixed datatypes. 
+* Struct should be defined with `type` keyword with `<name of struct>` and `struct` keyword. Inside the curly braces we need to define the variables along with the types. 
+  ```go
+  type UserData struct {
+	fName       string
+	lName       string
+	mail        string
+	noOfTickets uint
+  }
+  ```
+* `type` keyword creates a new type with the name you specify. 
+* You could also create a type based on every other data type like int, string, uint etc., 
+* Struct is similar to classes in java which do not support inheretence. 
+* Usage in function: 
+ ```go 
+  var userData = UserData{
+	  fName:       firstName,
+		lName:       lastName,
+		mail:        email,
+		noOfTickets: userTickets,
+	}
+  var totalBookings = make([]UserData, 0)
+  totalBookings = append(totalBookings, userData)
+ ```
+
+Concurrency 
